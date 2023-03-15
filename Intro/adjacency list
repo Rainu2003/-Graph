@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+
+class Adj
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        int n,m;
+
+        System.out.println("enter no of vertices");
+        n = sc.nextInt();
+        
+        LinkedList<Integer> adj[] = new LinkedList[n];
+        
+        for(int i = 0 ; i < n ; i++)
+            adj[i] = new LinkedList();
+
+        System.out.println("enter no of edges");
+        m = sc.nextInt();
+
+        int src,des;
+        
+        for(int i = 0 ; i < m ; i++)
+        {
+            src = sc.nextInt();
+            des = sc.nextInt();
+            
+            adj[src].add(des);
+            adj[des].add(src);
+        }
+        
+        for(int i = 0 ; i < n ; i++)
+        {
+            Iterator<Integer> it = adj[i].listIterator();
+            
+            System.out.println(i + "-->");
+            while(it.hasNext())
+            {
+                int nums = it.next();
+
+                System.out.print(nums + " ");
+            }
+            System.out.println();
+        }
+    }
+}
