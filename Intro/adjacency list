@@ -6,7 +6,7 @@ class Adj
     public static void main(String args[])
     {
         Scanner sc = new Scanner(System.in);
-        int n,m;
+        int n,m;                                  //  VERTICES (n) AND EDGES (m)
 
         System.out.println("enter no of vertices");
         n = sc.nextInt();
@@ -19,20 +19,21 @@ class Adj
         System.out.println("enter no of edges");
         m = sc.nextInt();
 
+        
         int src,des;
         
         for(int i = 0 ; i < m ; i++)
         {
-            src = sc.nextInt();
+            src = sc.nextInt();  
             des = sc.nextInt();
             
-            adj[src].add(des);
-            adj[des].add(src);
+            adj[src].add(des);                          // EDGE FROM SRC -> DES
+            adj[des].add(src);                          // EDGE FROM DES -> SRC
         }
         
         for(int i = 0 ; i < n ; i++)
         {
-            Iterator<Integer> it = adj[i].listIterator();
+            Iterator<Integer> it = adj[i].listIterator();  // ITERATE EACH INDEX ( CONTAINS LIST ) IN THE LIST
             
             System.out.println(i + "-->");
             while(it.hasNext())
