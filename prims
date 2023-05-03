@@ -1,0 +1,93 @@
+import java.util.*;
+
+class Pair {
+    int des;
+    int weig;
+
+    Pair(int des, int weig) {
+        this.des = des;
+        this.weig = weig;
+    }
+}
+
+public class G {
+    public static void prim(ArrayList<ArrayList<Pair>> adj, int v) {
+        boolean mst[] = new boolean[v];
+        int parent[] = new int[v];
+        int weight[] = new int[v];
+
+        for (int i = 0; i < v; i++) {
+            mst[i] = false;
+            parent[i] = -1;
+            weight[i] = Integer.MAX_VALUE;
+        }
+
+        parent[0] = 0;
+        weight[0] = 0;
+
+        for (int i = 0; i < v - 1; i++) {
+            int min = Integer.MAX_VALUE, u = 0;
+
+            for (int j = 0; j < v; j++) {
+                if (mst[j] == false && min > weight[j]) {
+                    u = j;
+                }
+            }
+
+            mst[u] = true;
+            for (Pair p : adj.get(u)) {
+                int d = p.des;
+                int w = p.weig;
+
+                if (mst[d] == false && w < weight[d]) {
+                    parent[d] = u;
+                    weight[d] = w;
+                }
+            }
+
+        }
+
+        System.out.println("weig is ");
+        for (int k = 0; k < parent.length; k++) {
+            System.out.println(parent[k] + "  ");
+        }
+    }
+
+    public static void main(String args[]) {
+        int V;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the number of vertex =  ");
+        V = sc.nextInt();
+
+        sc.close();
+
+        ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
+
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<Pair>());
+        }
+
+        adj.get(0).add(new Pair(1, 1));
+        adj.get(1).add(new Pair(0, 1));
+
+        adj.get(1).add(new Pair(2, 2));
+        adj.get(2).add(new Pair(1, 2));
+
+        adj.get(2).add(new Pair(4, 6));
+        adj.get(4).add(new Pair(2, 6));
+
+        adj.get(1).add(new Pair(4, 7));
+        adj.get(4).add(new Pair(1, 7));
+
+        adj.get(1).add(new Pair(3, 8));
+        adj.get(3).add(new Pair(1, 8));
+
+        adj.get(0).add(new Pair(3, 3));
+        adj.get(3).add(new Pair(0, 3));
+
+        G obj = new G();
+        obj.prim(adj, V);
+
+    }
+}
