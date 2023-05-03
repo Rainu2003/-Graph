@@ -30,6 +30,7 @@ public class G {
 
             for (int j = 0; j < v; j++) {
                 if (mst[j] == false && min > weight[j]) {
+                    min = weight[j];
                     u = j;
                 }
             }
