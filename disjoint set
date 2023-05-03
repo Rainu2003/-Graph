@@ -1,1 +1,66 @@
+import java.util.*;
+
+public class Disjoint {
+
+    public static int parent[] = new int[100000];
+    public static int rank[] = new int[100000];
+
+    public static void make(int n) {
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+            rank[i] = 0;
+        }
+    }
+
+    public static int fparent(int node) {
+        if (node == parent[node])
+            return node;
+
+        return parent[node] = fparent(parent[node]);
+    }
+
+    public static void union(int u, int v) {
+        u = fparent(u);
+        v = fparent(v);
+
+        if (rank[u] < rank[v])
+            parent[u] = v;
+        else if (rank[v] < rank[u])
+            parent[v] = u;
+        else {
+            parent[v] = u;
+            rank[u]++;
+        }
+    }
+
+    public static void main(String args[]) {
+        int u, v;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("enter n");
+        int n = sc.nextInt();
+
+        make(n);
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Enter the u");
+            u = sc.nextInt();
+
+            System.out.println("Enter the v");
+            v = sc.nextInt();
+            union(u, v);
+        }
+        sc.close();
+
+        if (parent[3] != parent[5])
+            System.out.println("they are not connnected");
+
+        if (parent[1] != parent[3])
+            System.out.println("they are  not connnected");
+        else
+            System.out.println("they are connnected");
+
+    }
+
+}
 
